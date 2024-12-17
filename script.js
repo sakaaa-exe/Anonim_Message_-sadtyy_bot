@@ -231,12 +231,26 @@ function sendToTelegram(message) {
 ╾════╼ @*sadtyy_bot* ╾════╼
 `;
 
+    // Buat link balasan untuk halaman NGL atau situs balasan
+    const replyLink = `https://sakaaa-exe.github.io/reply-ngl/index.html?message=${encodeURIComponent(message)}`;
+
+    // Menambahkan inline button untuk balasan
     const telegramUrl = `https://api.telegram.org/bot${botToken}/sendPhoto`;
     const payload = {
         chat_id: chatId,
         photo: photoUrl, // Kirim foto
         caption: formattedMessage, // Pesan teks dengan foto
         parse_mode: "Markdown", // Gunakan Markdown untuk format teks
+        reply_markup: JSON.stringify({
+            inline_keyboard: [
+                [
+                    {
+                        text: "Balas Pesan",
+                        url: replyLink, // Arahkan ke halaman balasan
+                    },
+                ],
+            ],
+        }),
     };
 
     fetch(telegramUrl, {
